@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Kakoo Designs</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-wide.css" />
+		</noscript>      
+        <style>
+			html, body {
+				height: 100%;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+				overflow:hidden;
+			}
+			#1image,#3image,#2image,#4image,#5image,#6image{ display:none; }
+
+			#wrap { 
+				 width:332px; 
+				 float:left;
+			}
+
+			#wrap img{ cursor:pointer;}	
+				
+			#frame{ float:left; width:332px; height:251px; padding:10px; }
+			
+			div.imagePlace {
+				float:left;
+				margin-left:4px;
+				}
+			 
+			img.a {
+				position: absolute;
+				z-index: 10;opacity:1.0;
+					}
+			 
+			img.b {
+				opacity:1.0;
+				}
+			#frame .caption{ 
+				border:solid #CCCCCC 1px; height:35px;  padding:5px; text-shadow: 0px -1px 0px #374683; text-align:justify;
+				filter: dropshadow(color=#e5e5ee,offX=0,offY=1); 
+				font-family:"Courier New", Courier, monospace; font-size:12px; margin-top:2px; color:#FFFFFF}
+			.caption{ display:none}
+		</style>
+		<style>
+			#player {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				background: #3F3F3F;
+				position: absolute;
+				border: solid 2px #3F3F3F;
+			}
+
+			.youtube .carousel {
+				width: 100%;
+				height: 80%;
+				overflow: auto;
+				position: absolute;
+				top:300px;
+				left: 0px;
+				z-index: 3;
+			}
+
+			.youtube .thumbnail {
+				margin: 2px;
+				width: 80%;
+				height: 20%;
+				border: 1px solid #3F3F3F;  
+			}
+
+			.youtube iframe.player {
+				width: 100%;
+				height: 240px;  
+				overflow: auto;
+				border: 0;
+			}
+			body
+			{
+				background: #3F3F3F;
+				width: 100%;
+				height: 100%;
+			}
+			</style>
+		<script type='text/javascript'>
+		$(document).ready(function(){
+			$("img.a").hover(
+			function() {
+			$(this).stop().animate({"opacity": "0"}, "slow");
+			},
+			function() {
+			$(this).stop().animate({"opacity": "1"}, "slow");
+			});
+			ShowPDF('MS Press-Programming Microsoft Windows with Csharp.pdf');
+		});
+		</script>
+		<script type="text/javascript">
+
+		$( init );
+		var num =0;
+		function init() {
+			
+			$('img.a').click( function() {
+				
+				var num = Math.floor(Math.random()*15);
+				
+				hideImage(num);
+				
+				var id   = $(this).attr("id");
+				$('#'+id+'_caption').show();
+				
+				$('#'+id+'image').animate( {
+					  bottom: '0px',
+					  width: '322px',
+					  height: '230px',
+					  opacity: 1,
+					},300 );
+				 
+			} );
+		}
+		function hideImage(num)
+		{
+			if(num%2 == 0)
+			{
+				$('img#1image').width(0).hide();
+				$('img#2image').width(0).hide();
+				$('img#3image').width(0).hide();
+				$('img#4image').width(0).hide();
+				$('img#5image').width(0).hide();
+				$('img#6image').width(0).hide();
+			}
+			else
+			{
+				$('img#1image').height(0).hide();
+				$('img#2image').height(0).hide();
+				$('img#3image').height(0).hide();
+				$('img#4image').height(0).hide();
+				$('img#5image').height(0).hide();
+				$('img#6image').height(0).hide();
+			}
+			
+			$('#1_caption').hide();
+			$('#2_caption').hide();
+			$('#3_caption').hide();
+			$('#4_caption').hide();
+			$('#5_caption').hide();
+			$('#6_caption').hide();
+		}
+
+		</script>
+		<script type="text/javascript">
+
+			  function ShowPDF(bookname) {
+				  var frmIframe = document.getElementById('frmPDF');
+				  if (frmIframe != null) {
+					  frmIframe.src = "Files/" + bookname;     
+				  }
+			  }
+		 </script>       
+		<script>
+		
+(function() {
+    function createPlayer(jqe, video, options) {
+        var ifr = $('iframe', jqe);
+        if (ifr.length === 0) {
+            ifr = $('<iframe scrolling="no">');
+            ifr.addClass('player');
+        }
+        var src = 'http://www.youtube.com/embed/' + video.id;
+        if (options.playopts) {
+            src += '?';
+            for (var k in options.playopts) {
+                src+= k + '=' + options.playopts[k] + '&';
+            }  
+            src += '_a=b';
+        }
+        ifr.attr('src', src);
+        jqe.append(ifr);  
+    }
+    
+    function createCarousel(jqe, videos, options) {
+        var car = $('div.carousel', jqe);
+        if (car.length === 0) {
+            car = $('<div>');
+            car.addClass('carousel');
+            jqe.append(car);
+            
+        }
+        $.each(videos, function(i,video) {
+            options.thumbnail(car, video, options); 
+        });
+    }
+    
+    function createThumbnail(jqe, video, options) {
+        var imgurl = video.thumbnails[0].url;
+        var img = $('img[src="' + imgurl + '"]');
+        if (img.length !== 0) return;
+        img = $('<img>');    
+        img.addClass('thumbnail');
+        jqe.append(img);
+        img.attr('src', imgurl);
+        img.attr('title', video.title);
+        img.click(function() {
+            options.player(options.maindiv, video, $.extend(true,{},options,{playopts:{autoplay:1}}));
+        });
+    }
+    
+    var defoptions = {
+        autoplay: false,
+        user: null,
+        carousel: createCarousel,
+        player: createPlayer,
+        thumbnail: createThumbnail,
+        loaded: function() {},
+        playopts: {
+            autoplay: 0,
+            egm: 1,
+            autohide: 1,
+            fs: 1,
+            showinfo: 0
+        }
+    };
+    
+    
+    $.fn.extend({
+        youTubeChannel: function(options) {
+            var md = $(this);
+            md.addClass('youtube');
+            md.addClass('youtube-channel');
+            var allopts = $.extend(true, {}, defoptions, options);
+            allopts.maindiv = md;
+            $.getJSON('http://gdata.youtube.com/feeds/users/' + allopts.user + '/uploads?alt=json-in-script&format=5&callback=?', null, function(data) {
+                var feed = data.feed;
+                var videos = [];
+                $.each(feed.entry, function(i, entry) {
+                    var video = {
+                        title: entry.title.$t,
+                        id: entry.id.$t.match('[^/]*$'),
+                        thumbnails: entry.media$group.media$thumbnail
+                    };
+                    videos.push(video);
+                });
+                allopts.allvideos = videos;
+                allopts.carousel(md, videos, allopts);
+                allopts.player(md, videos[0], allopts);
+                allopts.loaded(videos, allopts);
+            });
+        } 
+    });
+    
+})();
+        
+$(function() {
+    $('#player').youTubeChannel({user:'youtube'});
+});
+		
+		</script>
+	</head>
+	<body>	
+        <div class="right_pannel">
+			<div id="player"></div>
+		</div>
+		<div id="main">
+			<section id="top" class="one" style="background: #3F3F3F;">
+				<div class="container" style="width:75%; margin-left:0px; background: #3F3F3F;">
+					<div class="part_left">
+						<div id="content">
+							<iframe id="frmPDF" src="" style="width:100%;height:660px;" name="iframe_a"></iframe>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+    </body>
+</html>

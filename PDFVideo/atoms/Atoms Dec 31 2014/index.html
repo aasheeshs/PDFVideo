@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Kakoo Designs</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-wide.css" />
+		</noscript>      
+        <style>
+			html, body {
+				height: 100%;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+				overflow:hidden;
+			}
+			#1image,#3image,#2image,#4image,#5image,#6image{ display:none; }
+
+			#wrap { 
+				 width:332px; 
+				 float:left;
+			}
+
+			#wrap img{ cursor:pointer;}	
+				
+			#frame{ float:left; width:332px; height:251px; padding:10px; }
+			
+			div.imagePlace {
+				float:left;
+				margin-left:4px;
+				}
+			 
+			img.a {
+				position: absolute;
+				z-index: 10;opacity:1.0;
+					}
+			 
+			img.b {
+				opacity:1.0;
+				}
+			#frame .caption{ 
+				border:solid #CCCCCC 1px; height:35px;  padding:5px; text-shadow: 0px -1px 0px #374683; text-align:justify;
+				filter: dropshadow(color=#e5e5ee,offX=0,offY=1); 
+				font-family:"Courier New", Courier, monospace; font-size:12px; margin-top:2px; color:#FFFFFF}
+			.caption{ display:none}
+		</style>
+		<script type='text/javascript'>
+		$(document).ready(function(){
+			$("img.a").hover(
+			function() {
+			$(this).stop().animate({"opacity": "0"}, "slow");
+			},
+			function() {
+			$(this).stop().animate({"opacity": "1"}, "slow");
+			});
+			ShowPDF('MS Press-Programming Microsoft Windows with Csharp.pdf');
+		});
+		</script>
+		<script type="text/javascript">
+
+		$( init );
+		var num =0;
+		function init() {
+			
+			$('img.a').click( function() {
+				
+				var num = Math.floor(Math.random()*15);
+				
+				hideImage(num);
+				
+				var id   = $(this).attr("id");
+				$('#'+id+'_caption').show();
+				
+				$('#'+id+'image').animate( {
+					  bottom: '0px',
+					  width: '322px',
+					  height: '230px',
+					  opacity: 1,
+					},300 );
+				 
+			} );
+		}
+		function hideImage(num)
+		{
+			if(num%2 == 0)
+			{
+				$('img#1image').width(0).hide();
+				$('img#2image').width(0).hide();
+				$('img#3image').width(0).hide();
+				$('img#4image').width(0).hide();
+				$('img#5image').width(0).hide();
+				$('img#6image').width(0).hide();
+			}
+			else
+			{
+				$('img#1image').height(0).hide();
+				$('img#2image').height(0).hide();
+				$('img#3image').height(0).hide();
+				$('img#4image').height(0).hide();
+				$('img#5image').height(0).hide();
+				$('img#6image').height(0).hide();
+			}
+			
+			$('#1_caption').hide();
+			$('#2_caption').hide();
+			$('#3_caption').hide();
+			$('#4_caption').hide();
+			$('#5_caption').hide();
+			$('#6_caption').hide();
+		}
+
+		</script>
+		<script type="text/javascript">
+			  function ShowPDF(bookname) {
+				  var frmIframe = document.getElementById('frmPDF');
+				  if (frmIframe != null) {
+					  frmIframe.src = "Files/" + bookname;     
+				  }
+			  }
+		 </script>       
+	</head>
+	<body>	
+        <div class="right_pannel">
+            <div id="frame">
+				<img src="images/1big.jpg" width="322px" height="230" id="1image" />
+				<img src="images/2big.jpg" width="1" id="2image" style="display:none" />
+				<img src="images/3big.jpg" width="1" id="3image" style="display:none" />
+				<img src="images/4big.jpg" width="1" id="4image" style="display:none"  />
+				<img src="images/5big.jpg" width="1" id="5image" style="display:none" />
+				<img src="images/6big.jpg" width="1" id="6image" style="display:none" />
+			</div>	
+			<div id="wrap">
+				<div class="imagePlace">
+					<img src="images/1smallB.jpg" width="180" id="1" class="a" />
+					<img src="images/1small.jpg" width="180" class="b" />
+				</div>
+				<div class="imagePlace">
+					<img src="images/2smallB.jpg" width="180" id="2" class="a" />
+					<img src="images/2small.jpg" width="180" class="b" />
+				</div>
+				<div class="imagePlace">
+					<img src="images/3smallB.jpg" width="180" id="3" class="a" />
+					<img src="images/3small.jpg" width="180" class="b" />
+				</div>
+				<div class="imagePlace">
+					<img src="images/4smallB.jpg" width="180" id="4" class="a" />
+					<img src="images/4small.jpg" width="180" class="b" />
+					
+				</div>
+			</div>	
+		</div>
+		<div id="main">
+			<section id="top" class="one">
+				<div class="container" style="width:75%; margin-left:0px;">
+					<div class="part_left">
+						<div id="content">
+							<iframe id="frmPDF" src="" style="width:100%;height:660px;" name="iframe_a"></iframe>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+    </body>
+</html>
